@@ -36,7 +36,7 @@ jobs:
       - name: Deploy to GitHub Pages 
         uses: dmnemec/copy_file_to_another_repo_action@main
         env:
-            API_TOKEN_GITHUB: ${{ secrets.api}}
+            API_TOKEN_GITHUB: ${{ secrets.API2}}
         with:
           
             source_file: './site/.'
