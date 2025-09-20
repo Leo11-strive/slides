@@ -37,7 +37,7 @@ jobs:
     #       cp -R ./assets ./site/_assets/
 
       # 步骤 5: 部署到目标仓库
-      - name: Deploy to slides repo
+      - name: Deploy slides folder to slides repo
         uses: dmnemec/copy_file_to_another_repo_action@main
         env:
           # 确保你在仓库的 Settings -> Secrets 中配置了名为 API2 的 Personal Access Token
@@ -50,3 +50,17 @@ jobs:
           user_email: 'leobestli61@gmail.com'
           user_name: 'Leo11-strive'
           commit_message: 'Deploy: Update law and human rights slides' # 添加一个有意义的提交信息
+
+      # 步骤 6: 确保 GitHub Pages 不使用 Jekyll（否则以 _ 开头的目录会被忽略）
+      - name: Deploy .nojekyll to repo root
+        uses: dmnemec/copy_file_to_another_repo_action@main
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.API2 }}
+        with:
+          source_file: './.nojekyll'
+          destination_repo: 'Leo11-strive/slides'
+          destination_branch: 'main'
+          destination_folder: '.'
+          user_email: 'leobestli61@gmail.com'
+          user_name: 'Leo11-strive'
+          commit_message: 'chore: ensure GitHub Pages serves _assets (.nojekyll)'
