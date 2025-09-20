@@ -40,7 +40,7 @@ jobs:
         with:
           
             source_file: './site/.'
-            destination_repo: 'Leo11-strive/slides_deploy'
+            destination_repo: 'Leo11-strive/slides'
             destination_branch: 'main'
             destination_folder: './law_and_human_rights'
             user_email: 'leobestli61@gmail.com'
