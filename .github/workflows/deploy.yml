@@ -1,4 +1,5 @@
-name: Deploy Slides to GitHub Pages
+# 工作流名称
+name: Build and Deploy Slides to Slides Repo
 
 on:
   # 当有代码推送到 main 分支时触发
@@ -8,40 +9,39 @@ on:
   # 允许你从 Actions 标签页手动运行这个工作流
   workflow_dispatch:
 
-
 jobs:
   build-and-deploy:
     # 运行在最新的 Ubuntu 系统上
     runs-on: ubuntu-latest
 
     steps:
-      # 步骤 1: 检出你的仓库代码
+      # 步骤 1: 检出你的源码仓库
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # # 步骤 2: 设置 Node.js 环境
-      # - name: Setup Node.js
-      #   uses: actions/setup-node@v4
-      #   with:
-      #     node-version: '20'
-      #     cache: 'npm'
+      # 步骤 2: 设置 Node.js 环境 (这是必需的)
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # 使用一个稳定的长期支持版本
+          cache: 'npm'     # 缓存依赖以加快速度
 
-      # 步骤 3: 构建幻灯片
-      # 【核心修正】我们不再需要 'npm install -g' 步骤。
-      # 直接使用 'npx'，它会自动下载并运行 reveal-md 命令。
-      # 这可以完美解决 "command not found" 的问题。
-      
-      
-     
-      - name: Deploy to GitHub Pages 
+      # 步骤 3: 构建幻灯片并复制资源文件
+      # 使用 npx 运行 reveal-md，然后复制 assets 文件夹
+      - name: Build Slides and Copy Assets
+        run: npx reveal-md slides.md --static ./site && cp -R ./assets ./site/_assets
+
+      # 步骤 4: 推送构建好的文件到另一个仓库
+      - name: Deploy to slides repo
         uses: dmnemec/copy_file_to_another_repo_action@main
         env:
-            API_TOKEN_GITHUB: ${{ secrets.API2}}
+          # 确保你在仓库的 Settings -> Secrets 中配置了名为 API2 的 Personal Access Token
+          API_TOKEN_GITHUB: ${{ secrets.API2 }}
         with:
-          
-            source_file: './site/.'
-            destination_repo: 'Leo11-strive/slides'
-            destination_branch: 'main'
-            destination_folder: './law_and_human_rights'
-            user_email: 'leobestli61@gmail.com'
-            user_name: 'Leo11-strive'
+          source_file: './site/.' # 源目录现在由上一步正确生成了
+          destination_repo: 'Leo11-strive/slides'
+          destination_branch: 'main'
+          destination_folder: 'law_and_human_rights' # 将文件部署到目标仓库的这个子文件夹中
+          user_email: 'leobestli61@gmail.com'
+          user_name: 'Leo11-strive'
+          commit_message: 'Deploy: Update law and human rights slides' # 添加一个有意义的提交信息
