@@ -19,22 +19,22 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 步骤 2: 设置 Node.js 环境
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
+    #   # 步骤 2: 设置 Node.js 环境
+    #   - name: Setup Node.js
+    #     uses: actions/setup-node@v4
+    #     with:
+    #       node-version: '18'
 
-      # 步骤 3: 安装 reveal-md
-      - name: Install reveal-md
-        run: npm install -g reveal-md
+    #   # 步骤 3: 安装 reveal-md
+    #   - name: Install reveal-md
+    #     run: npm install -g reveal-md
 
-      # 步骤 4: 生成静态站点
-      - name: Build slides
-        run: |
-          reveal-md slides.md --static ./site
-          # 将图片资源复制到 _assets 目录下，保持与 CSS 的相对路径正确
-          cp -R ./assets ./site/_assets/
+    #   # 步骤 4: 生成静态站点
+    #   - name: Build slides
+    #     run: |
+    #       reveal-md slides.md --static ./site
+    #       # 将图片资源复制到 _assets 目录下，保持与 CSS 的相对路径正确
+    #       cp -R ./assets ./site/_assets/
 
       # 步骤 5: 部署到目标仓库
       - name: Deploy to slides repo
