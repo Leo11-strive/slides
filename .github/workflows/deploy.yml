@@ -19,18 +19,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 步骤 2: 设置 Node.js 环境 (这是必需的)
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20' # 使用一个稳定的长期支持版本
-
-      # 步骤 3: 构建幻灯片并复制资源文件
-      # 使用 npx 运行 reveal-md，然后复制 assets 文件夹
-      - name: Build Slides and Copy Assets
-        run: npx reveal-md slides.md --static ./site && cp -R ./assets ./site/_assets
-
-      # 步骤 4: 推送构建好的文件到另一个仓库
+      
       - name: Deploy to slides repo
         uses: dmnemec/copy_file_to_another_repo_action@main
         env:
