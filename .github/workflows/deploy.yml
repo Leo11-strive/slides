@@ -8,7 +8,7 @@ on:
   # 允许你从 Actions 标签页手动运行这个工作流
   workflow_dispatch:
 
-    
+
 jobs:
   build-and-deploy:
     # 运行在最新的 Ubuntu 系统上
@@ -34,15 +34,14 @@ jobs:
       
      
       - name: Deploy to GitHub Pages 
-        uses: peaceiris/actions-gh-pages@v4
+        uses: dmnemec/copy_file_to_another_repo_action@main
+        env:
+            API_TOKEN_GITHUB: ${{ secrets.ACTION_GITHUB_TOKEN }}
         with:
-          # 【核心修正】使用你刚刚创建的 PAT，而不是 GITHUB_TOKEN
-          personal_token: ${{ secrets.ACTION_DEPLOY_KEY }}
-          # 【核心修正】明确指定要推向的外部仓库
-          external_repository: Leo11-strive/slides
-          # 指定要推送到哪个分支
-          publish_branch: main
-          # 指定要发布哪个文件夹的内容
-          publish_dir: ./site
-          # 自定义提交信息
-          commit_message: "Deploy slides from source repo"
+          
+            source_file: './site/.'
+            destination_repo: 'Leo11-strive/slides_deploy'
+            destination_branch: 'main'
+            destination_folder: '.'
+            user_email: 'leobestli61@gmail.com'
+            user_name: 'Leo11-strive'
