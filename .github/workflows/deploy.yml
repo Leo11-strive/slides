@@ -33,9 +33,8 @@ jobs:
       - name: Build slides
         run: |
           reveal-md slides.md --static ./site
-          cp -R ./assets ./site/_assets
-          # 同时创建一个assets目录的符号链接以保持CSS路径兼容性
-          cd ./site && ln -sf _assets assets
+          # 将图片资源复制到 _assets 目录下，保持与 CSS 的相对路径正确
+          cp -R ./assets ./site/_assets/
 
       # 步骤 5: 部署到目标仓库
       - name: Deploy to slides repo
