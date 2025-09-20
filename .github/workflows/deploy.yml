@@ -36,7 +36,7 @@ jobs:
         uses: peaceiris/actions-gh-pages@v4
         with:
           # 【核心修正】使用你刚刚创建的 PAT，而不是 GITHUB_TOKEN
-          personal_token: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          personal_token: ${{ secrets.ACTION_DEPLOY_KEY }}
           # 【核心修正】明确指定要推向的外部仓库
           external_repository: Leo11-strive/slides
           # 指定要推送到哪个分支
