@@ -24,7 +24,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20' # 使用一个稳定的长期支持版本
-          cache: 'npm'     # 缓存依赖以加快速度
 
       # 步骤 3: 构建幻灯片并复制资源文件
       # 使用 npx 运行 reveal-md，然后复制 assets 文件夹
