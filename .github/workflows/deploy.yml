@@ -38,7 +38,7 @@ jobs:
           API_TOKEN_GITHUB: ${{ secrets.API2 }}
         with:
           source_file: './site/.' # 源目录现在由上一步正确生成了
-          destination_repo: 'Leo11-strive/slides'
+          destination_repo: 'Leo11-strive/slides_deploy'
           destination_branch: 'main'
           destination_folder: 'law_and_human_rights' # 将文件部署到目标仓库的这个子文件夹中
           user_email: 'leobestli61@gmail.com'
