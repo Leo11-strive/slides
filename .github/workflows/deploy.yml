@@ -35,6 +35,13 @@ jobs:
       - name: Deploy to GitHub Pages 
         uses: peaceiris/actions-gh-pages@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          # 确保这里的目录和上面 --static 参数指定的目录一致
+          # 【核心修正】使用你刚刚创建的 PAT，而不是 GITHUB_TOKEN
+          personal_token: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          # 【核心修正】明确指定要推向的外部仓库
+          external_repository: Leo11-strive/slides
+          # 指定要推送到哪个分支
+          publish_branch: main
+          # 指定要发布哪个文件夹的内容
           publish_dir: ./site
+          # 自定义提交信息
+          commit_message: "Deploy slides from source repo"
