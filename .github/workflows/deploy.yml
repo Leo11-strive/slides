@@ -24,7 +24,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '18'
-          cache: 'npm'
 
       # 步骤 3: 安装 reveal-md
       - name: Install reveal-md
