@@ -1,0 +1,40 @@
+name: Deploy Slides to GitHub Pages
+
+on:
+  # 当有代码推送到 main 分支时触发
+  push:
+    branches:
+      - main
+  # 允许你从 Actions 标签页手动运行这个工作流
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    # 运行在最新的 Ubuntu 系统上
+    runs-on: ubuntu-latest
+
+    steps:
+      # 步骤 1: 检出你的仓库代码
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # # 步骤 2: 设置 Node.js 环境
+      # - name: Setup Node.js
+      #   uses: actions/setup-node@v4
+      #   with:
+      #     node-version: '20'
+      #     cache: 'npm'
+
+      # 步骤 3: 构建幻灯片
+      # 【核心修正】我们不再需要 'npm install -g' 步骤。
+      # 直接使用 'npx'，它会自动下载并运行 reveal-md 命令。
+      # 这可以完美解决 "command not found" 的问题。
+      
+      
+     
+      - name: Deploy to GitHub Pages 
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          # 确保这里的目录和上面 --static 参数指定的目录一致
+          publish_dir: ../site
